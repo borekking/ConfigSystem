@@ -2,6 +2,9 @@ package de.borekking.configSystem.dataTypes;
 
 public class DataTypes {
 
+    private DataTypes() {
+    }
+
     /*
      * Own Enumeration for all IDataTypes.
      * (Because normal enumerations don't allow Generic.)
