@@ -1,4 +1,4 @@
-package de.borekking.configSystem;
+package de.borekking.configSystem.files;
 
 import java.io.File;
 import java.io.IOException;

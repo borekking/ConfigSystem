@@ -1,4 +1,4 @@
-import de.borekking.configSystem.FileLoader;
+import de.borekking.configSystem.files.FileLoader;
 
 import org.junit.After;
 import org.junit.Test;
