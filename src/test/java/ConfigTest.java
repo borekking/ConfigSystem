@@ -1,5 +1,9 @@
 import de.borekking.configSystem.Config;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 
