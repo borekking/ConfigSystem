@@ -2,6 +2,8 @@ package de.borekking.configSystem;
 
 import de.borekking.configSystem.util.JavaUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -175,6 +177,12 @@ public class Config {
         return innerConfig.createInnerConfigImp(segments, index + 1);
     }
     // ------------</Creating inner Config>------------
+
+    // ------------<Saving>------------
+    public void save(File file) throws IOException {
+        new ConfigWriter(this).write(file);
+    }
+    // ------------</Saving>------------
 
     // ------------<KeySet>------------
     public List<String> getKeySet() {
