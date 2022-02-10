@@ -21,7 +21,7 @@ public class DataTypes {
 
     public final static IDataType<Integer> INTEGER = new IntegerDataType();
 
-    public final static IDataType<Long> Long = new LongDataType();
+    public final static IDataType<Long> LONG = new LongDataType();
 
     public final static IDataType<Float> FLOAT = new FloatDataType();
 
