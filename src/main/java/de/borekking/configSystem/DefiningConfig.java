@@ -38,7 +38,7 @@ public class DefiningConfig extends Config {
         return this.getAsT(value, def, type);
     }
 
-    public <T> List<T> getIntList(String key, IDataType<T> type) {
+    public <T> List<T> getList(String key, IDataType<T> type) {
         return this.getList(key, type::test , type::convert);
     }
 

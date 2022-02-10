@@ -5,6 +5,7 @@ import de.borekking.configSystem.util.JavaUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
@@ -148,7 +149,7 @@ public class Config {
     }
     // ------------</Getting Values>------------
 
-    // ------------<Creating inner JSON Config>------------
+    // ------------<Creating inner Config>------------
     public Config createInnerConfig(String key) {
         String[] segments = key.split("\\.");
         return this.createInnerConfigImp(segments, 0);
@@ -173,14 +174,13 @@ public class Config {
         // Recursively call createInnerConfigImp innerConfig which next segment
         return innerConfig.createInnerConfigImp(segments, index + 1);
     }
-    // ------------</Creating inner JSON Config>------------
+    // ------------</Creating inner Config>------------
 
-
-    // ------------<Other>------------
+    // ------------<KeySet>------------
     public List<String> getKeySet() {
         return new ArrayList<>(this.values.keySet());
     }
-    // ------------</Other>------------
+    // ------------</KeySet>------------
 
     // ------------<Object Methods>------------
     @Override
