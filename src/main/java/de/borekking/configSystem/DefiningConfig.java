@@ -3,6 +3,7 @@ package de.borekking.configSystem;
 import de.borekking.configSystem.dataTypes.IDataType;
 
 import java.util.List;
+import java.util.Map;
 
 public class DefiningConfig extends Config {
 
@@ -25,6 +26,12 @@ public class DefiningConfig extends Config {
      */
 
     public DefiningConfig() {
+        super();
+    }
+
+    // Constructor for getting DefiningConfig from given values in HashMap
+    public DefiningConfig(Map<String, Object> values) {
+        super(values);
     }
 
     // Overwritten methods related to getting inner DefiningConfigs

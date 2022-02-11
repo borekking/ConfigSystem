@@ -30,6 +30,12 @@ public class Config {
         this.defaultValues = new Config(false);
     }
 
+    // Constructor for getting Config from given values in HashMap
+    public Config(Map<String, Object> values) {
+        this();
+        this.values.putAll(values);
+    }
+
     // Constructor for creating a Config without defaultValues
     private Config(boolean defaultValues) {
         this.values = new HashMap<>();
