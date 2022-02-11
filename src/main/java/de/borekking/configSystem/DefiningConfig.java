@@ -27,8 +27,41 @@ public class DefiningConfig extends Config {
     public DefiningConfig() {
     }
 
+    // Overwritten methods related to getting inner DefiningConfigs
+    @Override
+    public DefiningConfig getInnerConfig(String key) {
+        Object value = this.get(key);
+        return value instanceof DefiningConfig ? (DefiningConfig) value : null;
+    }
+
+    @Override
+    public DefiningConfig createInnerConfig(String key) {
+        String[] segments = key.split(Config.WORD_SEPARATOR);
+        return this.createInnerConfigImp(segments, 0);
+    }
+
+    private DefiningConfig createInnerConfigImp(String[] segments, int index) {
+        // If last key is reached, return current config, this
+        if (segments.length == index) return this;
+
+        // Get and associated value
+        String key = segments[index];
+        Object value = this.get(key);
+
+        // If value already is a JSONConfig just call createInnerConfigImp on it
+        if (value instanceof DefiningConfig)
+            return ((DefiningConfig) value).createInnerConfigImp(segments, index + 1);
+
+        // Create innerConfig and eventual overwrite current entry
+        DefiningConfig innerConfig = new DefiningConfig();
+        this.set(key, innerConfig);
+
+        // Recursively call createInnerConfigImp innerConfig which next segment
+        return innerConfig.createInnerConfigImp(segments, index + 1);
+    }
+
     // Getting specified datatype suing IDataTypes
-    public  <T> T get(String key, IDataType<T> type) {
+    public <T> T get(String key, IDataType<T> type) {
         Object def = this.getDefault(key);
         T defInt = this.getAsT(def, type.getDef(), type);
         return this.get(key, defInt, type);
@@ -40,10 +73,10 @@ public class DefiningConfig extends Config {
     }
 
     public <T> List<T> getList(String key, IDataType<T> type) {
-        return this.getList(key, type::test , type::convert);
+        return this.getList(key, type::test, type::convert);
     }
 
-    private  <T> T getAsT(Object o, T def, IDataType<T> type) {
+    private <T> T getAsT(Object o, T def, IDataType<T> type) {
         if (!type.test(o)) return def;
         return type.convert(o);
     }
