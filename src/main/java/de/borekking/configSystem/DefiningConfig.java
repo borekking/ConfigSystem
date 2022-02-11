@@ -43,7 +43,7 @@ public class DefiningConfig extends Config {
         return this.getList(key, type::test , type::convert);
     }
 
-    public <T> T getAsT(Object o, T def, IDataType<T> type) {
+    private  <T> T getAsT(Object o, T def, IDataType<T> type) {
         if (!type.test(o)) return def;
         return type.convert(o);
     }
