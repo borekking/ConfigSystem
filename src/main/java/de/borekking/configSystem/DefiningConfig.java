@@ -20,6 +20,7 @@ public class DefiningConfig extends Config {
      *   - float
      *   - double
      *   - String
+     *   - Number
      *
      */
 
