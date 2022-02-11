@@ -189,7 +189,10 @@ public class Config {
 
     // ------------<KeySet>------------
     public List<String> getKeySet() {
-        return new ArrayList<>(this.values.keySet());
+        List<String> keys = new ArrayList<>(this.values.keySet());
+        if (this.defaultValues != null)
+            keys.addAll(this.defaultValues.getKeySet());
+        return keys;
     }
     // ------------</KeySet>------------
 
