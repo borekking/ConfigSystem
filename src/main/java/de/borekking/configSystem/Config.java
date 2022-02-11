@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class Config {
 
     // Word Separator: all get, set and contain keys will be split at it.
-    private static final String wordSeparator = "\\.";
+    public static final String WORD_SEPARATOR = "\\.";
 
     // Values
     private final Map<String, Object> values;
@@ -56,7 +56,7 @@ public class Config {
 
     // ------------<Setting Values>------------
     public void set(String key, Object object) {
-        String[] segments = key.split(wordSeparator);
+        String[] segments = key.split(WORD_SEPARATOR);
 
         // Make sure it's not an empty key
         if (segments.length == 0) {
@@ -78,7 +78,7 @@ public class Config {
 
     // Checking if a config contains a key
     public boolean contains(String key) {
-        String[] segments = key.split(wordSeparator);
+        String[] segments = key.split(WORD_SEPARATOR);
         return this.containsImp(segments, 0);
     }
 
@@ -122,7 +122,7 @@ public class Config {
 
     // Getting a value as Object
     public Object get(String key) {
-        String[] segments = key.split(wordSeparator);
+        String[] segments = key.split(WORD_SEPARATOR);
         Object value = this.getImp(segments, 0);
 
         // If value is null return default value, else return value
@@ -133,6 +133,11 @@ public class Config {
     public Object get(String key, Object def) {
         Object value = this.get(key);
         return value == null ? def : value;
+    }
+
+    public Config getInnerConfig(String key) {
+        Object value = this.get(key);
+        return value instanceof Config ? (Config) value : null;
     }
 
     private Object getImp(String[] segments, int index) {
@@ -156,7 +161,7 @@ public class Config {
 
     // ------------<Creating inner Config>------------
     public Config createInnerConfig(String key) {
-        String[] segments = key.split(wordSeparator);
+        String[] segments = key.split(WORD_SEPARATOR);
         return this.createInnerConfigImp(segments, 0);
     }
 
