@@ -16,6 +16,9 @@ import java.util.stream.Collectors;
 
 public class Config {
 
+    // Word Separator: all get, set and contain keys will be split at it.
+    private static final String wordSeparator = "\\.";
+
     // Values
     private final Map<String, Object> values;
 
@@ -53,7 +56,7 @@ public class Config {
 
     // ------------<Setting Values>------------
     public void set(String key, Object object) {
-        String[] segments = key.split("\\.");
+        String[] segments = key.split(wordSeparator);
 
         // Make sure it's not an empty key
         if (segments.length == 0) {
@@ -75,7 +78,7 @@ public class Config {
 
     // Checking if a config contains a key
     public boolean contains(String key) {
-        String[] segments = key.split("\\.");
+        String[] segments = key.split(wordSeparator);
         return this.containsImp(segments, 0);
     }
 
@@ -119,7 +122,7 @@ public class Config {
 
     // Getting a value as Object
     public Object get(String key) {
-        String[] segments = key.split("\\.");
+        String[] segments = key.split(wordSeparator);
         Object value = this.getImp(segments, 0);
 
         // If value is null return default value, else return value
@@ -153,7 +156,7 @@ public class Config {
 
     // ------------<Creating inner Config>------------
     public Config createInnerConfig(String key) {
-        String[] segments = key.split("\\.");
+        String[] segments = key.split(wordSeparator);
         return this.createInnerConfigImp(segments, 0);
     }
 
