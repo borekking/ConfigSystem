@@ -29,4 +29,6 @@ public class DataTypes {
 
     public final static IDataType<String> STRING = new StringDataType();
 
+    public final static IDataType<Number> NUMBER = new NumberDataType();
+
 }
