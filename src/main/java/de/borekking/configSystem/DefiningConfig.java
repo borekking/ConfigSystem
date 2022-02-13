@@ -69,9 +69,7 @@ public class DefiningConfig extends Config {
 
     // Getting specified datatype suing IDataTypes
     public <T> T get(String key, IDataType<T> type) {
-        Object def = this.getDefault(key);
-        T defInt = this.getAsT(def, type.getDef(), type);
-        return this.get(key, defInt, type);
+        return this.get(key, type.getDef(), type);
     }
 
     public <T> T get(String key, T def, IDataType<T> type) {
