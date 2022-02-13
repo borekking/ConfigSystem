@@ -22,12 +22,8 @@ public class Config {
     // Values
     private final Map<String, Object> values;
 
-    // Default values
-    private final Config defaultValues;
-
     public Config() {
         this.values = new HashMap<>();
-        this.defaultValues = new Config(false);
     }
 
     // Constructor for getting Config from given values in HashMap
@@ -36,27 +32,9 @@ public class Config {
         this.values.putAll(values);
     }
 
-    // Constructor for creating a Config without defaultValues
-    private Config(boolean defaultValues) {
-        this.values = new HashMap<>();
-
-        if (defaultValues) this.defaultValues = new Config(false);
-        else this.defaultValues = null;
-    }
-
     // ------------<Default values>------------
     public void setDefault(String key, Object def) {
-        if (this.defaultValues == null) return;
-
-        this.defaultValues.set(key, def);
-    }
-
-    public Object getDefault(String key) {
-        return this.defaultValues == null ? null : this.defaultValues.get(key);
-    }
-
-    public boolean containDefault(String key) {
-        return this.defaultValues != null && this.defaultValues.containDefault(key);
+        this.set(key, def);
     }
     // ------------<Default values>------------
 
@@ -129,10 +107,7 @@ public class Config {
     // Getting a value as Object
     public Object get(String key) {
         String[] segments = key.split(WORD_SEPARATOR);
-        Object value = this.getImp(segments, 0);
-
-        // If value is null return default value, else return value
-        return value == null ? this.getDefault(key) : value;
+        return this.getImp(segments, 0);
     }
 
     // If key is not found, def is returned
@@ -200,18 +175,15 @@ public class Config {
 
     // ------------<KeySet>------------
     public List<String> getKeySet() {
-        List<String> keys = new ArrayList<>(this.values.keySet());
-        if (this.defaultValues != null)
-            keys.addAll(this.defaultValues.getKeySet());
-        return keys;
+        return new ArrayList<>(this.values.keySet());
     }
     // ------------</KeySet>------------
 
     // ------------<Object Methods>------------
     @Override
     public String toString() {
-        return "JSONConfig{" +
-                "values=" + values +
+        return '{' +
+                values.toString() +
                 '}';
     }
 
