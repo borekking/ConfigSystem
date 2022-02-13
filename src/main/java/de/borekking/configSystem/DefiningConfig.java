@@ -67,7 +67,7 @@ public class DefiningConfig extends Config {
         return innerConfig.createInnerConfigImp(segments, index + 1);
     }
 
-    // Getting specified datatype suing IDataTypes
+    // Getting specified datatype using IDataTypes
     public <T> T get(String key, IDataType<T> type) {
         return this.get(key, type.getDef(), type);
     }
