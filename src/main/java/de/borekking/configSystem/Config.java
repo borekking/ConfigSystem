@@ -34,6 +34,9 @@ public class Config {
 
     // ------------<Default values>------------
     public void setDefault(String key, Object def) {
+        // Add value only if it is not contained yet.
+        if (this.contains(key)) return;
+
         this.set(key, def);
     }
     // ------------<Default values>------------
