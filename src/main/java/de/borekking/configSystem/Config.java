@@ -147,6 +147,32 @@ public class Config {
     }
     // ------------</Getting Values>------------
 
+
+    // ------------<Removing Values>------------
+
+    // Returns if the value of this key was actually removed (it was not removed, if it did not exist).
+    public boolean remove(String key) {
+        // Check if key even exists
+        if (!this.contains(key)) return false;
+
+        String[] segments = key.split(WORD_SEPARATOR);
+
+        // Get/Create inner JSONConfig for second last segment (might be this)
+        Config innerConfig = this.createInnerConfigImp(JavaUtils.arrayRemoveEnd(segments, 1), 0);
+        innerConfig.values.remove(segments[segments.length - 1]);
+        return true;
+    }
+
+    // Returns if the value of this key was actually removed (it was not removed, if it has not given value).
+    public boolean remove(String key, Object value) {
+        // Check if key has value as value.
+        if (!this.get(key).equals(value)) return false;
+
+        // Use normal remove methode to remove the key
+        return this.remove(key);
+    }
+    // ------------</Removing Values>------------
+
     // ------------<Creating inner Config>------------
     public Config createInnerConfig(String key) {
         String[] segments = key.split(WORD_SEPARATOR);

@@ -95,6 +95,91 @@ public class ConfigTest {
         Assert.assertEquals(def, config.get(key));
     }
 
+    // Removing
+    @Test
+    public void testRemovingKeyNormalA() {
+        Config config = new Config();
+        String key = "key";
+
+        config.set(key, 42);
+        Assert.assertTrue(config.contains(key));
+
+        boolean success = config.remove(key);
+        Assert.assertTrue(success);
+        Assert.assertFalse(config.contains(key));
+    }
+
+    @Test
+    public void testRemovingKeyNormalB() {
+        Config config = new Config();
+        String key = "key";
+
+        config.set(key, 42);
+        Assert.assertTrue(config.contains(key));
+
+        boolean success = config.remove("test123");
+        Assert.assertFalse(success);
+        Assert.assertTrue(config.contains(key));
+    }
+
+    @Test
+    public void testRemovingKeySectionsA() {
+        Config config = new Config();
+        String keyOuter = "key.test", keyInner = keyOuter + ".inner3";
+
+        config.set(keyInner, 42);
+        Assert.assertTrue(config.contains(keyOuter));
+        Assert.assertTrue(config.contains(keyInner));
+
+        boolean success = config.remove(keyInner);
+        Assert.assertTrue(success);
+        Assert.assertTrue(config.contains(keyOuter));
+        Assert.assertFalse(config.contains(keyInner));
+    }
+
+    @Test
+    public void testRemovingKeySectionsB() {
+        Config config = new Config();
+        String keyOuter = "key.test", keyInner = keyOuter + ".inner3";
+
+        config.set(keyInner, 42);
+        Assert.assertTrue(config.contains(keyOuter));
+        Assert.assertTrue(config.contains(keyInner));
+
+        boolean success = config.remove(keyOuter);
+        Assert.assertTrue(success);
+        Assert.assertFalse(config.contains(keyOuter));
+        Assert.assertFalse(config.contains(keyInner));
+    }
+
+    @Test
+    public void testRemovingKeyAndValueA() {
+        String key = "key";
+        Object value = "Hello Word";
+
+        Config config = new Config();
+        config.set(key, value);
+        Assert.assertTrue(config.contains(key));
+
+        boolean success = config.remove(key, value);
+        Assert.assertTrue(success);
+        Assert.assertFalse(config.contains(key));
+    }
+
+    @Test
+    public void testRemovingKeyAndValueB() {
+        String key = "key";
+        Object value = "Hello Word";
+
+        Config config = new Config();
+        config.set(key, value);
+        Assert.assertTrue(config.contains(key));
+
+        boolean success = config.remove(key, "value");
+        Assert.assertFalse(success);
+        Assert.assertTrue(config.contains(key));
+    }
+
     private void testContaining(String key, Object value) {
         Config config = new Config();
         config.set(key, value);
