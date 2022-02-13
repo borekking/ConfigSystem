@@ -45,7 +45,7 @@ public class Config {
     public void set(String key, Object object) {
         String[] segments = key.split(WORD_SEPARATOR);
 
-        this.setImp(segments, 0, object);
+        this.setImp(segments, object);
     }
 
     // Adding inner configs
@@ -53,14 +53,14 @@ public class Config {
         this.set(key, config);
     }
 
-    private void setImp(String[] segments, int index, Object object) {
+    private void setImp(String[] segments, Object object) {
         // Make sure it's not an empty key
-        if (segments.length == index) {
+        if (segments.length == 0) {
             throw new IllegalArgumentException("You can not have an empty key!");
         }
 
         // Get/Create inner JSONConfig for second last segment (might be this)
-        Config innerConfig = this.createInnerConfigImp(JavaUtils.arrayRemoveEnd(segments, 1), index);
+        Config innerConfig = this.createInnerConfigImp(JavaUtils.arrayRemoveEnd(segments, 1), 0);
 
         // Set object in innerConfig's values
         innerConfig.values.put(segments[segments.length - 1], object);
